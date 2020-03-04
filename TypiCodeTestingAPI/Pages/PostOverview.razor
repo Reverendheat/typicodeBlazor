@@ -1,0 +1,33 @@
+﻿@page "/postoverview"
+@inherits PostOverviewBase
+
+<h1 class="page-title">All employees</h1>
+
+@if (Posts == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Employee ID</th>
+                <th>First name</th>
+                <th>Last name</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var post in Posts)
+            {
+                <div class="card">
+                    <h2>User: @post.userId</h2>
+                    <h2>Title: @post.title</h2>
+                    <h2>Body: @post.body</h2>
+                </div>
+            }
+        </tbody>
+    </table>
+}
