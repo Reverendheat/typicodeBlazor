@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using TypiCodeTestingAPI.Services;
+using Raven.Embedded;
 
 namespace TypiCodeTestingAPI
 {
@@ -25,7 +26,7 @@ namespace TypiCodeTestingAPI
 
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
-        public void ConfigureServices(IServiceCollection services)
+        public static void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
             services.AddHttpClient<IPostDataService, PostDataService>(
@@ -33,9 +34,16 @@ namespace TypiCodeTestingAPI
                 {
                     client.BaseAddress = new Uri("https://jsonplaceholder.typicode.com/");
                 });
+            services.AddSingleton<ISSOLinkDataService, SSOLinkDataService>();
             services.AddServerSideBlazor();
-
+            EmbeddedServer.Instance.StartServer(new ServerOptions
+            {
+                DataDirectory = "C:\\RavenData",
+                ServerUrl = "http://127.0.0.1:8080"
+            });
+            EmbeddedServer.Instance.OpenStudioInBrowser();
         }
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

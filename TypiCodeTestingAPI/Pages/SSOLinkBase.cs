@@ -9,17 +9,17 @@ using Raven.Embedded;
 
 namespace TypiCodeTestingAPI
 {
-    public class PostOverviewBase : ComponentBase
+    public class SSOLinkBase : ComponentBase
     {
         [Inject]
-        public IPostDataService PostDataService { get; set; }
+        public ISSOLinkDataService SSOLinkDataService { get; set; }
 
-       
-        public IEnumerable<Post> Posts { get; set; }
+
+        public IEnumerable<SSOLink> SSOLinks { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
-            Posts = (await PostDataService.GetAllPosts().ConfigureAwait(true)).ToList();
+            SSOLinks = (await SSOLinkDataService.GetSSOLinks().ConfigureAwait(true)).ToList();
         }
     }
 }

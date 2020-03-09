@@ -1,0 +1,19 @@
+﻿@page "/ssolinks"
+@inherits SSOLinkBase
+
+<h1 class="page-title">All SSO Links</h1>
+
+@if (SSOLinks == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    @foreach (var link in SSOLinks)
+    {
+        <div class="card">
+            <h2>Name: @link.Name</h2>
+            <h2>URL: @link.Url</h2>
+        </div>
+    }
+}
